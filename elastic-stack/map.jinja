@@ -1,0 +1,14 @@
+{% set elastic_stack = salt.grains.filter_by({
+    'default': {
+        'pkgs': ['elastic-stack'],
+        'service': 'elastic-stack',
+        'conf_file': '/etc/elastic-stack/elastic-stack.conf',
+        'config': {
+            'key': 'value',
+        },
+    },
+    'Debian': {
+    },
+    'RedHat': {
+    },
+}, grain='os_family', merge=salt.pillar.get('elastic-stack:overrides'), base='default') %}

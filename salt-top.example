@@ -1,0 +1,6 @@
+base:
+  '*':
+    - elastic-stack
+    
+    - elastic-stack.tests
+    

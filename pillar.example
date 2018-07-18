@@ -1,0 +1,7 @@
+# -*- mode: yaml -*-
+elastic-stack:
+  overrides:
+    pkg: elastic-stack
+    conf_file: /usr/local/etc/elastic-stack/elastic-stack.conf
+  config:
+    key: othervalue
