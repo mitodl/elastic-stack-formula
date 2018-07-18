@@ -1,0 +1,9 @@
+{% set beats = salt.grains.filter_by({
+    'default': {
+        'pkgs': [
+            'metricbeat',
+        ],
+        'config': {
+        }
+    },
+}, grain='os_family', merge=salt.pillar.get('elastic_stack:kibana'), base='default') %}

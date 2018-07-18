@@ -1,0 +1,15 @@
+[Unit]
+Description=Elastalert - Service for alerting based on Elasticsearch queries
+Documentation=http://elastalert.readthedocs.io/en/latest
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/elastalert.sh start
+ExecStop=/usr/local/bin/elastalert.sh stop
+ExecReload=/usr/local/bin/elastalert.sh reload
+Restart=always
+PIDFile=/var/run/elastalert.pid
+TimeoutStartSec=1
+
+[Install]
+WantedBy=multi-user.target

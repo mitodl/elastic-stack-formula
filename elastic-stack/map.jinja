@@ -1,14 +1,20 @@
-{% set elastic_stack = salt.grains.filter_by({
+{% set version = salt.pillar.get('elastic_stack:version', '6.x') %}
+{% set elastic_stack = salt['grains.filter_by']({
     'default': {
-        'pkgs': ['elastic-stack'],
-        'service': 'elastic-stack',
-        'conf_file': '/etc/elastic-stack/elastic-stack.conf',
-        'config': {
-            'key': 'value',
+        'version': version,
+        'pkgs': [],
+        'configuration_settings': {
+            'node.data': true,
+            'gateway.recover_after_time': '5m',
         },
+        'gpg_key': 'https://artifacts.elastic.co/GPG-KEY-elasticsearch',
+        'pkg_repo_url': 'https://artifacts.elastic.co/packages/{0}'.format(version)} %}
     },
-    'Debian': {
+    'Debian':{
+        'pkg_repo_suffix': 'debian',
+        'openjdk_repo': 'deb http://ftp.us.debian.org/debian/ stretch main contrib non-free'
     },
     'RedHat': {
+        'pkg_repo_suffix': 'centos',
     },
-}, grain='os_family', merge=salt.pillar.get('elastic-stack:overrides'), base='default') %}
+}, grain='os_family', merge=salt['pillar.get']('elasticsearch:lookup'), base='default') %}

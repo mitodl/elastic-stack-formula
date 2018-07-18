@@ -1,0 +1,49 @@
+{% set elastalert = salt.grains.filter_by({
+    'default': {
+        'settings': {
+            'rules_folder': '/etc/elastalert/rules/',
+            'es_host': 'localhost',
+            'es_port': 9200,
+            'writeback_index': 'elastalert_status',
+            'run_every': {
+                'minutes': 1
+            },
+            'use_ssl': False,
+            'buffer_time': {
+                'minutes': 15
+            },
+            'alert_time_limit': {
+                'days': 2
+            }
+        },
+        'create_index': True
+    },
+    'Debian': {
+        'pkgs': [
+            'build-essential',
+            'libssl-dev',
+            'libffi-dev',
+            'python-dev'
+        ]
+    },
+    'RedHat': {
+        'pkgs': [
+            'gcc',
+            'make',
+            'libffi-devel',
+            'python-devel',
+            'openssl-devel'
+        ]
+    }
+}, grain='os_family', merge=salt.pillar.get('elastic_stack:elastalert'), base='default') %}
+
+{% set elastalert_init = salt.grains.filter_by({
+    'systemd': {
+        'init_file': '/etc/systemd/system/elastalert.service',
+        'init_source': 'salt://elastic-stack/elastalert/files/elastalert.systemd'
+    },
+    'upstart': {
+        'init_file': '/etc/init/elastalert.conf',
+        'init_source': 'salt://elastic-stack/elastalert/files/elastalert.upstart'
+    }
+}, grain='init', merge=salt.pillar.get('elastic_stack:elastalert:init'), base='default') %}
