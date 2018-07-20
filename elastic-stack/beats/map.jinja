@@ -10,7 +10,14 @@
 {% do beats['agents'].update(
     {
         beat: {
-            'config': settings.get('config', {}),
+            'config': settings.get(
+                'config',
+                {
+                    '{}.config.modules'.format(beat): {
+                        'path': '/etc/{}/modules.d/*.yml'.format(beat)
+                    }
+                }
+            ),
             'modules': settings.get('modules', {})
         }
     }) %}

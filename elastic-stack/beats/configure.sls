@@ -14,6 +14,9 @@ manage_configuration_for_{{ agent }}:
 
 {% for module, module_config in settings.modules.items() %}
 configure_{{ module }}_module_for_{{ agent }}:
+  cmd.run:
+    - name: /usr/share/{{ agent }}/bin/{{ agent }} modules enable {{ module }}
+    - cwd: /etc/{{ agent }}
   file.managed:
     - name: /etc/{{ agent }}/modules.d/{{ module }}.yml
     - contents: |

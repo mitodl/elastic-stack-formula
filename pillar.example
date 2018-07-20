@@ -8,7 +8,6 @@ elastic_stack:
       'gateway.expected_nodes': 1
       'gateway.recover_after_time': '5m'
       network.host: _local_
-      transport.host: _eth0_
       cluster.name: 'elasticsearch_cluster'
       discovery.zen.ping.unicast.hosts: ['192.168.33.10']
     plugins:
@@ -21,6 +20,8 @@ elastic_stack:
   beats:
     metricbeat:
       config:
+        metricbeat.config.modules:
+          path: /etc/metricbeat/modules.d/*.yml
         tags:
           - vagrant
           - demo
