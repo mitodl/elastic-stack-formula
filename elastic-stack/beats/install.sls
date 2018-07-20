@@ -1,7 +1,7 @@
-{% from "elastic_stack/kibana/map.jinja" import beats with context %}
+{% from "elastic-stack/beats/map.jinja" import beats with context %}
 
 include:
-  - elastic_stack.repository
+  - elastic-stack.repository
 
 install_beats_agents:
   pkg.installed:

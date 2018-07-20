@@ -1,6 +1,7 @@
 base:
   '*':
     - elastic-stack
-    
-    - elastic-stack.tests
-    
+    - elastic-stack.elasticsearch
+    - elastic-stack.kibana
+    - elastic-stack.elastalert
+    - elastic-stack.beats

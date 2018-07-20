@@ -1,4 +1,4 @@
-{% from "elasticsearch/map.jinja" import elastic_stack with context %}
+{% from "elastic-stack/map.jinja" import elastic_stack with context %}
 {% set os_family = salt.grains.get('os_family') %}
 {% set osfullname = salt.grains.get('osfullname') %}
 
@@ -15,7 +15,7 @@ configure_elastic_stack_package_repo:
     - humanname: Elastic Stack {{ elastic_stack.version }}
     {% if os_family == 'Debian' %}
     - name: deb {{ elastic_stack.pkg_repo_url }}/apt stable main
-    - gpgkey: {{ elasticsearch.gpg_key }}
+    - gpgkey: {{ elastic_stack.gpg_key }}
     - refresh_db: True
     {% elif os_family == 'RedHat' %}
     - name: {{ name }}

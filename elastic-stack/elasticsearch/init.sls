@@ -1,4 +1,4 @@
 include:
   - .install
   - .configure
-  - .service
+  - .plugins

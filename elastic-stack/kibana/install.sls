@@ -1,7 +1,7 @@
-{% from "elastic_stack/kibana/map.jinja" import kibana with context %}
+{% from "elastic-stack/kibana/map.jinja" import kibana with context %}
 
 include:
-  - elastic_stack.repository
+  - elastic-stack.repository
 
 install_kibana:
   pkg.installed:

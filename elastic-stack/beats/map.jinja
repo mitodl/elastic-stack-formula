@@ -1,9 +1,17 @@
-{% set beats = salt.grains.filter_by({
-    'default': {
-        'pkgs': [
-            'metricbeat',
-        ],
-        'config': {
+{% set elastic_beats = salt.pillar.get('elastic_stack:beats', {}) %}
+{% set beats = {
+    'pkgs': [],
+    'services': [],
+    'agents': {}
+} %}
+{% for beat, settings in elastic_beats.items() %}
+{% do beats['pkgs'].append(beat) %}
+{% do beats['services'].append(beat) %}
+{% do beats['agents'].update(
+    {
+        beat: {
+            'config': settings.get('config', {}),
+            'modules': settings.get('modules', {})
         }
-    },
-}, grain='os_family', merge=salt.pillar.get('elastic_stack:kibana'), base='default') %}
+    }) %}
+{% endfor %}

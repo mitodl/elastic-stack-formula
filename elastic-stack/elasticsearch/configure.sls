@@ -2,7 +2,6 @@
 
 include:
   - .service
-  - .repository
 
 # Create folder and set permissions
 {% set conf_dir = elasticsearch.conf_folder %}
