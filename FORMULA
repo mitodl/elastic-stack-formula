@@ -6,4 +6,4 @@ release: 1
 summary: Deploy, configure, and manage the various components of the Elastic Stack (e.g. Elasticsearch, Kibana, Beats, Logstash)
 description: Deploy, configure, and manage the various components of the Elastic Stack (e.g. Elasticsearch, Kibana, Beats, Logstash)
 top_level_dir: elastic-stack
-recommended: 
+recommended: nginx-formula

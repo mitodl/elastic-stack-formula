@@ -19,17 +19,32 @@ Available states
 ``elastic-stack``
 -----------------
 
-TODO - add description of this state
+By default this will execute the `elastic-stack.repository` state
 
-``elastic-stack.install``
+``elastic-stack.repository``
 ----------------------
 
-Handles installation of elastic-stack
+This will enable the elastic stack repository for the specified 'version' (e.g. 6.x by default). All of the sub-packages rely on this state being executed and will include it as part of their install state.
 
-``elastic-stack.config``
+``elastic-stack.elasticsearch``
 ----------------------
 
-Handles configuration of elastic-stack
+This is a sub-package for installing, configuring, and managing the Elasticsearch service and its plugins
+
+``elastic-stack.kibana``
+----------------------
+
+This is a sub-package for installing, configuring, and managing the Kibana service and its plugins
+
+``elastic-stack.beats``
+----------------------
+
+This is a sub-package for installing, configuring, and managing the various Beats agents and their associated modules
+
+``elastic-stack.elastalert``
+----------------------
+
+This is a sub-package for installing, configuring, and managing the Elastalert service for monitoring the contents of Elasticsearch and generating notifications based on periodic queries.
 
 
 Template
