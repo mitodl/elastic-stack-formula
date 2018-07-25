@@ -1,0 +1,12 @@
+description "Elastalert - Service for alerting based on Elasticsearch queries""
+author "Tobias Macey"
+start on filesystem or runlevel [2345]
+stop on shutdown
+
+script
+  /usr/local/bin/elastalert.sh start
+end script
+
+pre-stop script
+  /usr/local/bin/elastalert.sh stop
+end script

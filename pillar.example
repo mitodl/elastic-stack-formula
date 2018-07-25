@@ -1,7 +1,47 @@
 # -*- mode: yaml -*-
-elastic-stack:
-  overrides:
-    pkg: elastic-stack
-    conf_file: /usr/local/etc/elastic-stack/elastic-stack.conf
-  config:
-    key: othervalue
+elastic_stack:
+  version: '6.x'
+  elasticsearch:
+    configuration_settings:
+      'discovery.zen.minimum_master_nodes': 1
+      'gateway.recover_after_nodes': 1
+      'gateway.expected_nodes': 1
+      'gateway.recover_after_time': '5m'
+      network.host: _local_
+      cluster.name: 'elasticsearch_cluster'
+      discovery.zen.ping.unicast.hosts: ['192.168.33.10']
+    plugins:
+      - name: discovery-ec2
+        config:
+          cloud:
+            aws:
+              region: us-east-1
+      - name: repository-s3
+  beats:
+    metricbeat:
+      config:
+        metricbeat.config.modules:
+          path: /etc/metricbeat/modules.d/*.yml
+        tags:
+          - vagrant
+          - demo
+      modules:
+        system:
+          - module: system
+            metricsets:
+              - cpu
+              - filesystem
+              - load
+              - memory
+              - network
+              - process
+              - process_summary
+              - uptime
+            enabled: 'true'
+            period: 1s
+            processes:
+              - '.*'
+
+mine_functions:
+  network.ip_addrs: [eth0]
+  network.get_hostname: []

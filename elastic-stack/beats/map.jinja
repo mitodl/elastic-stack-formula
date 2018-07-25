@@ -1,0 +1,24 @@
+{% set elastic_beats = salt.pillar.get('elastic_stack:beats', {}) %}
+{% set beats = {
+    'pkgs': [],
+    'services': [],
+    'agents': {}
+} %}
+{% for beat, settings in elastic_beats.items() %}
+{% do beats['pkgs'].append(beat) %}
+{% do beats['services'].append(beat) %}
+{% do beats['agents'].update(
+    {
+        beat: {
+            'config': settings.get(
+                'config',
+                {
+                    '{}.config.modules'.format(beat): {
+                        'path': '/etc/{}/modules.d/*.yml'.format(beat)
+                    }
+                }
+            ),
+            'modules': settings.get('modules', {})
+        }
+    }) %}
+{% endfor %}
