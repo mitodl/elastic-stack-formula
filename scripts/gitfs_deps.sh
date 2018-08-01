@@ -17,7 +17,7 @@ then
     echo ''
 else
     curl -L "https://bootstrap.pypa.io/get-pip.py" > get_pip.py
-    sudo python get_pip.py 'pip<10'
+    sudo python get_pip.py
     rm get_pip.py
     sudo pip install gitpython
 fi
