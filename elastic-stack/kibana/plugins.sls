@@ -3,7 +3,7 @@
 include:
   - .service
 
-{% for plugin in salt.pillar.get('kibana:plugins', {}) %}
+{% for plugin in salt.pillar.get('elastic_stack:kibana:plugins', {}) %}
 install_{{ plugin.name }}_plugin:
   cmd.run:
     - name: /usr/share/kibana/bin/kibana-plugin install {{ plugin.get('location', plugin.name) }}

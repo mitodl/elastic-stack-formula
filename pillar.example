@@ -17,6 +17,27 @@ elastic_stack:
             aws:
               region: us-east-1
       - name: repository-s3
+    index_templates:
+      - name: logstash
+        definition:
+          template: logstash-*
+          settings:
+            index:
+              refresh_interval: 5s
+              number_of_shards: 5
+              number_of_replicas: 1
+          mappings:
+            fluentd:
+              dynamic_templates:
+                - strings:
+                    match_mapping_type: string
+                    mapping:
+                      type: string
+                      fields:
+                        raw:
+                          type: string
+                          index: not_analyzed
+                          ignore_above: 256
   beats:
     metricbeat:
       config:
