@@ -18,7 +18,7 @@ configure_elastic_stack_package_repo:
     - gpgkey: {{ elastic_stack.gpg_key }}
     - refresh_db: True
     {% elif os_family == 'RedHat' %}
-    - name: {{ name }}
+    - name: elastic_stack
     - baseurl: {{ elastic_stack.pkg_repo_url }}/yum
     - gpgcheck: 1
     - enabled: 1

@@ -126,3 +126,12 @@ stop_elasticsearch_service:
 start_elasticsearch_service:
   service.running:
     - name: elasticsearch
+
+{% for template in
+   salt.pillar.get('elastic_stack:elasticsearch:index_templates', []) %}
+update_{{ template.name }}_template:
+  elasticsearch.index_template_present:
+    - name: {{ template.name }}
+    - definition: {{ template.definition | tojson }}
+    - check_definition: True
+{% endfor %}

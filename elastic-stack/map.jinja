@@ -17,4 +17,4 @@
     'RedHat': {
         'pkg_repo_suffix': 'centos',
     },
-}, grain='os_family', merge=salt['pillar.get']('elasticsearch:lookup'), base='default') %}
+}, grain='os_family', merge=salt['pillar.get']('elastic_stack:overrides'), base='default') %}
