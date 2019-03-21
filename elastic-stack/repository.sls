@@ -5,7 +5,7 @@
 {% if os_family == 'RedHat' %}
 install_elastic_stack_gpg_key:
   cmd.run:
-    - name: rpm --import {{ elastic_stack.gpg-key }}
+    - name: rpm --import {{ elastic_stack.gpg_key }}
     - require_in:
         - pkgrepo: configure_elastic_stack_package_repo
 {% endif %}
