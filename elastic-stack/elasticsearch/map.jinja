@@ -17,6 +17,7 @@
         'log_folder': '/var/log/elasticsearch/',
         'conf_folder': '/etc/elasticsearch/',
         'conf_file': '/etc/elasticsearch/elasticsearch.conf',
+        'java_home': '/usr/lib/jvm/java-1.8.0-openjdk-amd64'
     },
     'Debian':{
         'pkg_deps': [
@@ -29,6 +30,7 @@
         'pkg_deps': [
             'java-1.8.0-openjdk-headless'
         ],
-        'env_file': '/etc/sysconfig/elasticsearch'
+        'env_file': '/etc/sysconfig/elasticsearch',
+        'java_home': '/usr/lib/jvm/jre-1.8.0-openjdk'
     },
 }, grain='os_family', merge=salt.pillar.get('elastic_stack:elasticsearch'), base='default') %}
