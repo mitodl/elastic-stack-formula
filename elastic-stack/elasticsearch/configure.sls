@@ -41,6 +41,15 @@ update_elasticsearch_heap_size:
     - onchanges_in:
         - service: elasticsearch_service
 
+update_elasticsearch_java_home:
+  file.replace:
+    - name: {{ elasticsearch.env_file }}
+    - pattern: '^#JAVA_HOME='
+    - repl: 'JAVA_HOME="{{ elasticsearch.java_home }}"'
+    - append_if_not_found: True
+    - onchanges_in:
+        - service: elasticsearch_service
+
 uncomment_elasticsearch_defaults:
   file.uncomment:
     - name: {{ elasticsearch.env_file }}
