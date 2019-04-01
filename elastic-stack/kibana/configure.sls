@@ -8,6 +8,13 @@ create_kibana_directory:
     - name: /etc/kibana
     - makedirs: True
 
+ensure_writability_of_kibana_log:
+  file.managed:
+    - name: /var/log/kibana.log
+    - user: kibana
+    - group: kibana
+    - mode: 0640
+
 configure_kibana:
   file.managed:
     - name: /etc/kibana/kibana.yml
