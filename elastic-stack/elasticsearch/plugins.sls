@@ -9,7 +9,6 @@ include:
 {{ command }}_{{ plugin.name }}_plugin:
   cmd.run:
     - name: /usr/share/elasticsearch/bin/elasticsearch-plugin {{ commands[command] }} {{ plugin.get('location', plugin.name) }}
-    - unless: "[ $(/usr/share/elasticsearch/bin/elasticsearch-plugin list | grep {{ plugin.name }} | wc -l) -eq 1 ]"
     - watch_in:
         - service: elasticsearch_service
 {% endfor %}
