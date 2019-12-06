@@ -1,8 +1,5 @@
 {% set kibana = salt.grains.filter_by({
     'default': {
-        'pkgs': [
-            'kibana'
-        ],
         'config': {
             'elasticsearch.url': 'http://localhost:9200',
             'server.host': '127.0.0.1',

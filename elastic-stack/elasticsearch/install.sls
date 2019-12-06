@@ -1,5 +1,6 @@
 {% from "elastic-stack/elasticsearch/map.jinja" import elasticsearch with context %}
 {% set osfullname = salt.grains.get('osfullname') %}
+{% set version = salt.pillar.get('elastic_stack:version') %}
 
 include:
     - elastic-stack.repository
@@ -11,7 +12,8 @@ install_pkg_dependencies:
 
 install_elasticsearch:
   pkg.installed:
-    - pkgs: {{ elasticsearch.pkgs }}
+    - name: elasticsearch
+    - version: {{ version }}
     - refresh: True
     - skip_verify: {{ not elasticsearch.get('verify_package', True) }}
     - require:
