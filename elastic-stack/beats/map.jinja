@@ -1,11 +1,13 @@
 {% set elastic_beats = salt.pillar.get('elastic_stack:beats', {}) %}
+{% set version = salt.pillar.get('elastic_stack:version') %}
+
 {% set beats = {
     'pkgs': [],
     'services': [],
     'agents': {}
 } %}
 {% for beat, settings in elastic_beats.items() %}
-{% do beats['pkgs'].append(beat) %}
+{% do beats['pkgs'].append({beat: version}) %}
 {% do beats['services'].append(beat) %}
 {% do beats['agents'].update(
     {

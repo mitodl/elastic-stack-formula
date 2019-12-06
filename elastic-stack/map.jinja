@@ -1,4 +1,6 @@
-{% set version = salt.pillar.get('elastic_stack:version', '6.x') %}
+{% set version = salt.pillar.get('elastic_stack:version') %}
+{% set maj_version = elastic_stack.version.split('.')[0] %}
+
 {% set elastic_stack = salt['grains.filter_by']({
     'default': {
         'version': version,
@@ -8,7 +10,7 @@
             'gateway.recover_after_time': '5m',
         },
         'gpg_key': 'https://artifacts.elastic.co/GPG-KEY-elasticsearch',
-        'pkg_repo_url': 'https://artifacts.elastic.co/packages/{0}'.format(version)
+        'pkg_repo_url': 'https://artifacts.elastic.co/packages/{0}.x'.format(maj_version)
     },
     'Debian': {
         'pkg_repo_suffix': 'debian',
