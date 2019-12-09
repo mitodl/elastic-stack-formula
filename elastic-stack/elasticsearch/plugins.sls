@@ -8,6 +8,8 @@ include:
 remove_{{ plugin.name }}_plugin:
   cmd.run:
     - name: /usr/share/elasticsearch/bin/elasticsearch-plugin remove {{ plugin.get('location', plugin.name) }}
+    - onlyif:
+        - test -e /usr/share/elasticsearch/plugins/{{ plugin.name }}/{{ plugin.name }}*.jar
     - onchanges:
       - pkg: install_elasticsearch
 
