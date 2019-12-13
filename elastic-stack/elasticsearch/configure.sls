@@ -82,9 +82,11 @@ set_swapiness_for_elasticsearch_node:
 increase_elasticsearch_file_descriptor_limit:
   cmd.run:
     - name: sysctl -w fs.file-max={{ elasticsearch.fd_limit }}
-  file.append:
-    - name: /etc/sysctl.conf
-    - text: fs.file_max={{ elasticsearch.fd_limit }}
+  file.replace:
+    - path: /etc/sysctl.conf
+    - pattern: '^fs.file_max=.*'
+    - repl: fs.file_max={{ elasticsearch.fd_limit }}
+    - append_if_not_found: True
     - onchanges_in:
         - service: elasticsearch_service
 
