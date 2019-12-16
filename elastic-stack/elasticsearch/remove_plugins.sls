@@ -7,9 +7,6 @@
 
 {% for plugin in plugins %}
 remove_elasticsearch_{{ plugin.name }}_plugin:
-  salt.function:
-    - tgt: "G@roles:elasticsearch and G@environment:{{ ENVIRONMENT }}"
-    - name: cmd.run
-    - arg:
-      - /usr/share/elasticsearch/bin/elasticsearch-plugin remove {{ plugin.get('location', plugin.name) }}
+  cmd.run:
+    - name: /usr/share/elasticsearch/bin/elasticsearch-plugin remove {{ plugin.get('location', plugin.name) }}
 {% endfor %}
