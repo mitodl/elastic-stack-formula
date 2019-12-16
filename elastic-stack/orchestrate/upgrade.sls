@@ -3,7 +3,6 @@
 
     Example:
       sudo -E ENVIRONMENT=operations-qa \
-        ES_BASE_URL=http://elasticsearch.service.consul:9200 \
         salt-run state.orchestrate elastic_stack.orchestrate.upgrade
 #}
 
