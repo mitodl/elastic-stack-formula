@@ -5,11 +5,11 @@
 {% set ENVIRONMENT = salt.environ.get('ENVIRONMENT') %}
 {% set plugins = salt.pillar.get('elastic_stack:elasticsearch:plugins', []) %}
 
-install_elasticsearch_plugins:
+{% for plugin in plugins %}
+install_elasticsearch_{{ plugin.name }}_plugin:
   salt.function:
     - tgt: "G@roles:elasticsearch and G@environment:{{ ENVIRONMENT }}"
     - name: cmd.run
     - arg:
-      {% for plugin in plugins %}
-      - /usr/share/elasticsearch/bin/elasticsearch-plugin install -b {{ plugin }}
-      {% endfor %}
+      - /usr/share/elasticsearch/bin/elasticsearch-plugin install -b {{ plugin.get('location', plugin.name) }}
+{% endfor %}
