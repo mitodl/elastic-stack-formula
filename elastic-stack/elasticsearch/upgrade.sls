@@ -35,7 +35,7 @@ upgrade_elasticsearch:
       - elastic-stack.elasticsearch.install_plugins
       - elastic-stack.elasticsearch.configure
     - require:
-      - http.query: disable_shard_allocation
+      - http: disable_shard_allocation
 
 enable_shard_allocation:
   http.query:
@@ -46,4 +46,4 @@ enable_shard_allocation:
     - header_dict:
       'Content-type': 'application/json'
     - require:
-      - http.query: disable_shard_allocation
+      - salt: upgrade_elasticsearch
