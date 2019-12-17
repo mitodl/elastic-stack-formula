@@ -27,6 +27,7 @@ upgrade_elasticsearch:
   salt.state:
     - tgt: "{{ ES_NODE_TARGET }}"
     - batch: 1
+    - batch_wait: {{ WAIT | int }}
     - sls:
       - elastic-stack.elasticsearch.remove_plugins
       - elastic-stack.elasticsearch.install
