@@ -25,10 +25,10 @@ upgrade_elasticsearch:
     - tgt: "{{ ES_NODE_TARGET }}"
     - batch: 1
     - sls:
-      - elastic_stack.elasticsearch.remove_plugins
-      - elastic_stack.elasticsearch.install
-      - elastic_stack.elasticsearch.install_plugins
-      - elastic_stack.elasticsearch.configure
+      - elastic-stack.elasticsearch.remove_plugins
+      - elastic-stack.elasticsearch.install
+      - elastic-stack.elasticsearch.install_plugins
+      - elastic-stack.elasticsearch.configure
 
 enable_shard_allocation:
   http.query:
