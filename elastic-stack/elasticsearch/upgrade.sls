@@ -1,16 +1,19 @@
 {# USAGE:
     Set ES_BASE_URL to your Elasticsearch URL.
     Set ES_NODE_TARGET to the Salt target for your Elasticsearch node minions.
+    Set WAIT to the time to wait after restarting nodes and doing the next one.
 
     Example:
       sudo -E \
         ES_BASE_URL=http://mycluster:9200 \
         ES_NODE_TARGET="elasticsearch-*" \
+        WAIT=30 \
         salt-run state.orchestrate elastic_stack.elasticsearch.upgrade
 #}
 
 {% set ES_NODE_TARGET = salt.environ.get('ES_NODE_TARGET') %}
 {% set ES_BASE_URL = salt.environ.get('ES_BASE_URL') %}
+{% set WAIT = salt.environ.get('WAIT', '30') %}
 
 disable_shard_allocation:
   http.query:
