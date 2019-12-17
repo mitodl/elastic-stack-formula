@@ -34,6 +34,8 @@ upgrade_elasticsearch:
       - elastic-stack.elasticsearch.install
       - elastic-stack.elasticsearch.install_plugins
       - elastic-stack.elasticsearch.configure
+    - require:
+      - http.query: disable_shard_allocation
 
 enable_shard_allocation:
   http.query:
@@ -43,3 +45,5 @@ enable_shard_allocation:
     - data: '{"persistent": {"cluster.routing.allocation.enable": "all"}}'
     - header_dict:
       'Content-type': 'application/json'
+    - require:
+      - http.query: disable_shard_allocation
