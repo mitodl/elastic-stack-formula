@@ -5,7 +5,7 @@
     Example:
       sudo -E \
         ES_BASE_URL=http://mycluster:9200 \
-        ES_NODE_TARGET="G@role:elasticsearch and G@environment:qa" \
+        ES_NODE_TARGET="elasticsearch-*" \
         salt-run state.orchestrate elastic_stack.elasticsearch.upgrade
 #}
 
@@ -23,7 +23,6 @@ disable_shard_allocation:
 upgrade_elasticsearch:
   salt.state:
     - tgt: "{{ ES_NODE_TARGET }}"
-    - tgt_type: compound
     - batch: 1
     - sls:
       - elastic_stack.elasticsearch.remove_plugins
