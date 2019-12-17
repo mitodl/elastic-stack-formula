@@ -1,14 +1,15 @@
 {# USAGE:
-    Set ENVIRONMENT to your architectural environment.
     Set ES_BASE_URL to your Elasticsearch URL.
+    Set ES_NODE_TARGET to the Salt target for your Elasticsearch node minions.
 
     Example:
-      sudo -E ENVIRONMENT=operations-qa \
+      sudo -E \
         ES_BASE_URL=http://mycluster:9200 \
-        salt-run state.orchestrate elastic_stack.orchestrate.upgrade
+        ES_NODE_TARGET="G@role:elasticsearch and G@environment:qa" \
+        salt-run state.orchestrate elastic_stack.elasticsearch.upgrade
 #}
 
-{% set ENVIRONMENT = salt.environ.get('ENVIRONMENT') %}
+{% set ES_NODE_TARGET = salt.environ.get('ES_NODE_TARGET') %}
 {% set ES_BASE_URL = salt.environ.get('ES_BASE_URL') %}
 
 disable_shard_allocation:
@@ -21,7 +22,7 @@ disable_shard_allocation:
 
 upgrade_elasticsearch:
   salt.state:
-    - tgt: "G@roles:elasticsearch and G@environment:{{ ENVIRONMENT }}"
+    - tgt: "{{ ES_NODE_TARGET }}"
     - tgt_type: compound
     - batch: 1
     - sls:
