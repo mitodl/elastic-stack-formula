@@ -17,7 +17,7 @@
 
 disable_shard_allocation:
   http.query:
-    - name: http://{{ ES_BASE_URL }}/_cluster/settings
+    - name: {{ ES_BASE_URL }}/_cluster/settings
     - method: PUT
     - status: 200
     - data: '{"persistent": {"cluster.routing.allocation.enable": "none"}}'
@@ -37,7 +37,7 @@ upgrade_elasticsearch:
 
 enable_shard_allocation:
   http.query:
-    - name: http://{{ ES_BASE_URL }}/_cluster/settings
+    - name: {{ ES_BASE_URL }}/_cluster/settings
     - method: PUT
     - status: 200
     - data: '{"persistent": {"cluster.routing.allocation.enable": "all"}}'
