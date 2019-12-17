@@ -37,10 +37,3 @@ enable_shard_allocation:
     data: '{"persistent": {"cluster.routing.allocation.enable": "all"}}'
     header_dict:
       'Content-type': 'application/json'
-
-upgrade_kibana:
-  salt.state:
-    - tgt: "G@roles:kibana and G@environment:{{ ENVIRONMENT }}"
-    - tgt_type: compound
-    - sls:
-      - elastic_stack.kibana
