@@ -14,10 +14,10 @@
 
 disable_shard_allocation:
   http.query:
-    name: http://{{ ES_BASE_URL }}/_cluster/settings
-    method: PUT
-    data: '{"persistent": {"cluster.routing.allocation.enable": "none"}}'
-    header_dict:
+    - name: http://{{ ES_BASE_URL }}/_cluster/settings
+    - method: PUT
+    - data: '{"persistent": {"cluster.routing.allocation.enable": "none"}}'
+    - header_dict:
       'Content-type': 'application/json'
 
 upgrade_elasticsearch:
@@ -32,8 +32,8 @@ upgrade_elasticsearch:
 
 enable_shard_allocation:
   http.query:
-    name: http://{{ ES_BASE_URL }}/_cluster/settings
-    method: PUT
-    data: '{"persistent": {"cluster.routing.allocation.enable": "all"}}'
-    header_dict:
+    - name: http://{{ ES_BASE_URL }}/_cluster/settings
+    - method: PUT
+    - data: '{"persistent": {"cluster.routing.allocation.enable": "all"}}'
+    - header_dict:
       'Content-type': 'application/json'
