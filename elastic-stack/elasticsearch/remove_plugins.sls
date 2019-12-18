@@ -5,6 +5,10 @@
 {% set ENVIRONMENT = salt.environ.get('ENVIRONMENT') %}
 {% set plugins = salt.pillar.get('elastic_stack:elasticsearch:plugins', []) %}
 
+stop_elasticsearch:
+  service.dead:
+    name: elasticsearch
+
 {% for plugin in plugins %}
 remove_elasticsearch_{{ plugin.name }}_plugin:
   cmd.run:
