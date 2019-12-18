@@ -23,6 +23,7 @@ disable_shard_allocation:
     - data: '{"persistent": {"cluster.routing.allocation.enable": "none"}}'
     - header_dict:
       'Content-type': 'application/json'
+      'Accept': 'application/json'
 
 upgrade_elasticsearch:
   salt.state:
@@ -45,5 +46,6 @@ enable_shard_allocation:
     - data: '{"persistent": {"cluster.routing.allocation.enable": "all"}}'
     - header_dict:
       'Content-type': 'application/json'
+      'Accept': 'application/json'
     - require:
       - salt: upgrade_elasticsearch
