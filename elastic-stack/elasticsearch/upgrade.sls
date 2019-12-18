@@ -29,8 +29,6 @@ disable_shard_allocation:
     - header_dict:
         'Content-Type': 'application/json'
         'Accept': 'application/json'
-        'Accept-Charset': 'utf-8'
-        'Accept-Encoding': '*'
 
 upgrade_elasticsearch:
   salt.state:
@@ -59,8 +57,6 @@ enable_shard_allocation:
     - header_dict:
         'Content-Type': 'application/json'
         'Accept': 'application/json'
-        'Accept-Charset': 'utf-8'
-        'Accept-Encoding': '*'
 
     - require:
       - salt: upgrade_elasticsearch
