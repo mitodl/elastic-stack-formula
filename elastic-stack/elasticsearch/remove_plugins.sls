@@ -7,7 +7,7 @@
 
 stop_elasticsearch:
   service.dead:
-    name: elasticsearch
+    - name: elasticsearch
 
 {% for plugin in plugins %}
 remove_elasticsearch_{{ plugin.name }}_plugin:
