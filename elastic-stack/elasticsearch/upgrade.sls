@@ -20,7 +20,12 @@ disable_shard_allocation:
     - name: {{ ES_BASE_URL }}/_cluster/settings
     - method: PUT
     - status: 200
-    - data: '{"persistent": {"cluster.routing.allocation.enable": "none"}}'
+    - data: >-
+        {
+          "persistent": {
+            "cluster.routing.allocation.enable": "none"
+          }
+        }
     - header_dict:
       'Content-Type': 'application/json'
       'Accept': 'application/json'
@@ -45,7 +50,12 @@ enable_shard_allocation:
     - name: {{ ES_BASE_URL }}/_cluster/settings
     - method: PUT
     - status: 200
-    - data: '{"persistent": {"cluster.routing.allocation.enable": "all"}}'
+    - data: >-
+        {
+          "persistent": {
+            "cluster.routing.allocation.enable": "all"
+          }
+        }
     - header_dict:
       'Content-Type': 'application/json'
       'Accept': 'application/json'
