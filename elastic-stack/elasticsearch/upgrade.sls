@@ -8,7 +8,7 @@
         ES_BASE_URL=http://mycluster:9200 \
         ES_NODE_TARGET="elasticsearch-*" \
         WAIT=30 \
-        salt-run state.orchestrate elastic_stack.elasticsearch.upgrade
+        salt-run state.orchestrate elastic-stack.elasticsearch.upgrade
 #}
 
 {% set ES_NODE_TARGET = salt.environ.get('ES_NODE_TARGET') %}
