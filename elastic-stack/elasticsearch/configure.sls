@@ -84,11 +84,17 @@ increase_elasticsearch_file_descriptor_limit:
     - name: sysctl -w fs.file-max={{ elasticsearch.fd_limit }}
   file.replace:
     - name: /etc/sysctl.conf
-    - pattern: '^fs.file_max=.*'
-    - repl: fs.file_max={{ elasticsearch.fd_limit }}
+    - pattern: '^fs.file-max=.*'
+    - repl: fs.file-max={{ elasticsearch.fd_limit }}
     - append_if_not_found: True
     - onchanges_in:
         - service: elasticsearch_service
+  file.replace:
+    - name: /usr/lib/systemd/system/elasticsearch.service
+    - pattern: 'LimitNOFILE'
+    - repl: LimitNOFILE={{ elasticsearch.fd_limit }}
+    - append_if_not_found: True
+      - onchanges_in: elasticsearch_service
 
 # Increase limits of mmap counts https://www.elastic.co/guide/en/elasticsearch/reference/current/vm-max-map-count.html
 increase_max_map_count:
