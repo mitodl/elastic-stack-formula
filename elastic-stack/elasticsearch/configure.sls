@@ -79,16 +79,31 @@ set_swapiness_for_elasticsearch_node:
 {% endif %}
 
 # Up the count for file descriptors for Lucene https://www.elastic.co/guide/en/elasticsearch/reference/current/file-descriptors.html
-increase_elasticsearch_file_descriptor_limit:
+update_sysctl_file_descriptor_limit:
   cmd.run:
     - name: sysctl -w fs.file-max={{ elasticsearch.fd_limit }}
   file.replace:
     - name: /etc/sysctl.conf
-    - pattern: '^fs.file_max=.*'
-    - repl: fs.file_max={{ elasticsearch.fd_limit }}
+    - pattern: '^fs.file-max=.*'
+    - repl: fs.file-max={{ elasticsearch.fd_limit }}
     - append_if_not_found: True
     - onchanges_in:
         - service: elasticsearch_service
+
+update_elasticsearch_systemd_file_descriptor_limit:
+  file.managed:
+    - name: /etc/systemd/system/elasticsearch.service.d/fdlimit.conf
+    - contents: |
+        [Service]
+        LimitNOFILE={{ elasticsearch.fd_limit }}
+    - onchanges_in:
+        - service: elasticsearch_service
+
+reload_elasticsearch_systemd_units:
+  cmd.wait:
+    - name: systemctl daemon-reload
+    - onchanges:
+        - file: update_elasticsearch_systemd_file_descriptor_limit
 
 # Increase limits of mmap counts https://www.elastic.co/guide/en/elasticsearch/reference/current/vm-max-map-count.html
 increase_max_map_count:
