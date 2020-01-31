@@ -92,7 +92,7 @@ update_sysctl_file_descriptor_limit:
 
 update_elasticsearch_systemd_file_descriptor_limit:
   file.managed:
-    - name: /etc/systemd/system/elasticsearch.service
+    - name: /etc/systemd/system/elasticsearch.service.d/fdlimit.conf
     - contents: |
         [Service]
         LimitNOFILE={{ elasticsearch.fd_limit }}
