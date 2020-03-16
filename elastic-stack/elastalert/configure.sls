@@ -59,4 +59,5 @@ generate_elastalert_status_index:
         --url-prefix {{ elastalert.settings.get("es_url_prefix", "''") }}
         --index {{ elastalert.settings.writeback_index }}
         --old-index {{ elastalert.settings.get("old_writeback_index", "''") }}
+        --alias {{ elastalert.settings.get("alias", 'elastalert_alerts')}}
 {% endif %}
