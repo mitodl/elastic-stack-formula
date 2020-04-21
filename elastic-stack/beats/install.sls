@@ -5,7 +5,7 @@ include:
 
 install_beats_agents:
   pkg.installed:
-    - pkgs: {{ beats.pkgs }}
+    - pkgs: {{ beats.pkgs|tojson }}
     - reload_modules: True
     - update: True
     - require:

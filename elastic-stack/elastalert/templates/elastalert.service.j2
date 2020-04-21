@@ -8,8 +8,10 @@ ExecStart=/usr/local/bin/elastalert.sh start
 ExecStop=/usr/local/bin/elastalert.sh stop
 ExecReload=/usr/local/bin/elastalert.sh reload
 Restart=always
-PIDFile=/var/run/elastalert.pid
+PIDFile=/var/run/elastalert/elastalert.pid
 TimeoutStartSec=1
+User={{ user }}
+Group={{ group }}
 
 [Install]
 WantedBy=multi-user.target

@@ -1,6 +1,6 @@
 # -*- mode: yaml -*-
 elastic_stack:
-  version: '6.x'
+  version: 7.6.2
   elasticsearch:
     configuration_settings:
       'discovery.zen.minimum_master_nodes': 1
@@ -59,7 +59,7 @@ elastic_stack:
               - process_summary
               - uptime
             enabled: 'true'
-            period: 1s
+            period: 5s
             processes:
               - '.*'
 

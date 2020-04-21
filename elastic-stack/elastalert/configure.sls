@@ -1,4 +1,4 @@
-{% from "elastic-stack/elastalert/map.jinja" import elastalert, elastalert_init with context %}
+{% from "elastic-stack/elastalert/map.jinja" import elastalert with context %}
 
 include:
   - .service
@@ -9,6 +9,7 @@ install_elastalert_addon_packages:
   pip.installed:
     - pkgs: {{ elastalert_addons }}
     - upgrade: True
+    - bin_env: /opt/elastalert
 {% endif %}
 
 generate_elastalert_config_file:
@@ -19,6 +20,8 @@ generate_elastalert_config_file:
         {{ elastalert.settings|yaml(False)|indent(8) }}
     - watch_in:
         - service: elastalert_service_running
+    - user: {{ elastalert.user }}
+    - group: {{ elastalert.group }}
 
 {% for rule in salt.pillar.get('elastic_stack:elastalert:rules', [])  %}
 generate_elastalert_rules_{{ rule.name }}_file:
@@ -29,6 +32,8 @@ generate_elastalert_rules_{{ rule.name }}_file:
         {{ rule.settings|yaml(False)|indent(8) }}
     - watch_in:
         - service: elastalert_service_running
+    - user: {{ elastalert.user }}
+    - group: {{ elastalert.group }}
 {% endfor %}
 
 create_elastalert_control_script:
@@ -39,8 +44,12 @@ create_elastalert_control_script:
 
 define_elastalert_init_service:
   file.managed:
-    - name: {{ elastalert_init.init_file }}
-    - source: {{ elastalert_init.init_source }}
+    - name: {{ elastalert.init_file }}
+    - source: {{ elastalert.init_source }}
+    - template: jinja
+    - context:
+        user: {{ elastalert.user }}
+        group: {{ elastalert.group }}
     - require:
         - file: create_elastalert_control_script
     - require_in:
@@ -52,7 +61,7 @@ define_elastalert_init_service:
 generate_elastalert_status_index:
   cmd.run:
     - name: >-
-        /usr/local/bin/elastalert-create-index
+        /opt/elastalert/bin/elastalert-create-index
         --host {{ elastalert.settings.es_host }}
         --port {{ elastalert.settings.es_port }}
         {{ ssl_arg }} {{ auth_arg }}
