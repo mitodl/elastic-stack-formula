@@ -1,4 +1,4 @@
-{% set version = salt.pillar.get('elastic_stack:version') %}
+{% set version = salt.pillar.get('elastic_stack:version', '7.6') %}
 {% set maj_version = version.split('.')[0] %}
 
 {% set elastic_stack = salt['grains.filter_by']({

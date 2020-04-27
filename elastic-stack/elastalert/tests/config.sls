@@ -1,4 +1,4 @@
-{% from "elasticsearch/elastalert/map.jinja" import elastalert, elastalert_init with context %}
+{% from "elasticsearch/elastalert/map.jinja" import elastalert with context %}
 
 test_elastalert_config_file_present:
   testinfra.file:
