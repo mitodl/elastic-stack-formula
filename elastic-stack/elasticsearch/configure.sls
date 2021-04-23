@@ -29,7 +29,7 @@ update_io_scheduler_for_{{device_name}}:
 {% set heap_size = heap_max if heap_max < 31744 else 31744 %}
 config_jvm_options:
   file.comment:
-    - name: '{{ elasticsearch.conf_folder }}/jvm.options'
+    - name: '{{ elasticsearch.conf_folder }}jvm.options'
     - regex: '^-Xm[sx]\d\w'
 
 update_elasticsearch_heap_size:
