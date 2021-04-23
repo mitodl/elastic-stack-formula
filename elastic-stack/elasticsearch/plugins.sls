@@ -22,4 +22,8 @@ install_{{ plugin.name }}_plugin:
         - cmd: remove_{{ plugin.name }}_plugin
     - watch_in:
         - service: elasticsearch_service
+
+set_permissions_on_{{plugin.name}}_plugin:
+  cmd.run:
+    - name: chgrp -R elasticsearch /etc/elasticsearch/{{ plugin.name }}
 {% endfor %}
