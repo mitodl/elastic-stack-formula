@@ -12,20 +12,20 @@
         'log_folder': '/usr/share/elasticsearch/logs',
         'conf_folder': '/etc/elasticsearch/',
         'conf_file': '/etc/elasticsearch/elasticsearch.conf',
-        'java_home': '/usr/lib/jvm/java-1.8.0-openjdk-amd64'
+        'java_home': '/usr/lib/jvm/java-11-openjdk-amd64'
     },
     'Debian':{
         'pkg_deps': [
-            'openjdk-8-jre-headless',
+            'openjdk-11-jre-headless',
             'apt-transport-https'
         ],
         'env_file': '/etc/default/elasticsearch'
     },
     'RedHat': {
         'pkg_deps': [
-            'java-1.8.0-openjdk-headless'
+            'java-11-openjdk-headless'
         ],
         'env_file': '/etc/sysconfig/elasticsearch',
-        'java_home': '/usr/lib/jvm/jre-1.8.0-openjdk'
+        'java_home': '/usr/lib/jvm/jre-11-openjdk'
     },
 }, grain='os_family', merge=salt.pillar.get('elastic_stack:elasticsearch'), base='default') %}
